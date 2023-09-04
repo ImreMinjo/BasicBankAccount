@@ -9,75 +9,82 @@ public class BankAccount {
         this.balance = initialBalance;
     }
 
-    // Deposit method
     public void deposit(double amount) {
         if (amount > 0) {
-            this.balance += amount; // Update the balance by adding the deposit amount
+            this.balance += amount;
             System.out.println("Deposited $" + amount);
         } else {
             System.out.println("Invalid deposit amount.");
         }
     }
 
-    // Withdraw method
     public void withdraw(double amount) {
         if (amount > 0 && amount <= this.balance) {
-            this.balance -= amount; // Update the balance by subtracting the withdrawal amount
+            this.balance -= amount;
             System.out.println("Withdrawn $" + amount);
         } else {
             System.out.println("Invalid withdrawal amount or insufficient balance.");
         }
     }
 
-    // Get balance method
     public double getBalance() {
-        return this.balance; // Return the current balance
+        return this.balance;
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter your account number: ");
-        String accountNumber = scanner.nextLine();
+        boolean createNewAccount = true;
 
-        System.out.print("Enter your initial balance: ");
-        double initialBalance = scanner.nextDouble();
+        while (createNewAccount) {
 
-        BankAccount myAccount = new BankAccount(accountNumber, initialBalance);
 
-        boolean continueTransactions = true;
-        while (continueTransactions) {
-            System.out.println("\nChoose an option:");
-            System.out.println("1. Deposit");
-            System.out.println("2. Withdraw");
-            System.out.println("3. Check Balance");
-            System.out.println("4. Exit");
+            System.out.print("Enter your account number: ");
+            String accountNumber = scanner.nextLine();
 
-            int choice = scanner.nextInt();
+            System.out.print("Enter your initial balance: ");
+            double initialBalance = scanner.nextDouble();
 
-            switch (choice) {
-                case 1:
-                    System.out.print("Enter the deposit amount: $");
-                    double depositAmount = scanner.nextDouble();
-                    myAccount.deposit(depositAmount);
-                    break;
-                case 2:
-                    System.out.print("Enter the withdrawal amount: $");
-                    double withdrawalAmount = scanner.nextDouble();
-                    myAccount.withdraw(withdrawalAmount);
-                    break;
-                case 3:
-                    System.out.println("Current balance: $" + myAccount.getBalance());
-                    break;
-                case 4:
-                    System.out.println("Exiting the program.");
-                    continueTransactions = false;
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please select a valid option.");
+            BankAccount myAccount = new BankAccount(accountNumber, initialBalance);
+
+            boolean continueTransactions = true;
+            while (continueTransactions) {
+                System.out.println("\nChoose an option:");
+                System.out.println("1. Deposit");
+                System.out.println("2. Withdraw");
+                System.out.println("3. Check Balance");
+                System.out.println("4. Exit");
+
+                int choice = scanner.nextInt();
+
+                switch (choice) {
+                    case 1:
+                        System.out.print("Enter the deposit amount: $");
+                        double depositAmount = scanner.nextDouble();
+                        myAccount.deposit(depositAmount);
+                        break;
+                    case 2:
+                        System.out.print("Enter the withdrawal amount: $");
+                        double withdrawalAmount = scanner.nextDouble();
+                        myAccount.withdraw(withdrawalAmount);
+                        break;
+                    case 3:
+                        System.out.println("Current balance: $" + myAccount.getBalance());
+                        break;
+                    case 4:
+                        System.out.println("Exiting the program.");
+                        continueTransactions = false;
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please select a valid option.");
+                }
             }
+            System.out.print("Do you want to create another account? (yes/no): ");
+            String response = scanner.next();
+            createNewAccount = response.equalsIgnoreCase("yes");
+            scanner.nextLine();
         }
-
         scanner.close();
     }
 }
+
